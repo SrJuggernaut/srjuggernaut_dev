@@ -75,6 +75,11 @@ const themeBase: Partial<ThemeOptions> = {
         transition: background-color 0.5s ease, color 0.5s ease;
       }
       `
+    },
+    MuiAppBar: {
+      defaultProps: {
+        color: 'transparent'
+      }
     }
   },
   typography: {
