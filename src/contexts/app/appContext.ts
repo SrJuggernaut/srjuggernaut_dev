@@ -6,8 +6,8 @@ export interface AppState {
 }
 
 export interface AppContext {
-  state: AppState
-  dispatch: Dispatch<AppAction>
+  appState: AppState
+  appDispatch: Dispatch<AppAction>
 }
 
 const appContext = createContext<AppContext>({} as AppContext)

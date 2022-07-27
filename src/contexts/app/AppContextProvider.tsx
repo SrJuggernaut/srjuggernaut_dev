@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
-import React, { useLayoutEffect, useMemo, useReducer } from 'react'
+import React, { useEffect, useMemo, useReducer } from 'react'
 
 import appContext, { AppState } from '@contexts/app/appContext'
 import appReducer from '@contexts/app/appReducer'
@@ -18,7 +18,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
 
   const theme = useMemo(() => createTheme(state.theme === 'dark' ? darkTheme : lightTheme), [state.theme])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const localTheme = localStorage.getItem('theme') as AppState['theme']
     if (localTheme) {
       dispatch({ type: 'SET_THEME', payload: localTheme })
@@ -28,8 +28,8 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
   return (
     <appContext.Provider
       value={{
-        state,
-        dispatch
+        appState: state,
+        appDispatch: dispatch
       }}
     >
       <ThemeProvider theme={theme}>

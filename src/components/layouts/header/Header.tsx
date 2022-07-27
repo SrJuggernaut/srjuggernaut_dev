@@ -8,7 +8,7 @@ import appContext from '@contexts/app/appContext'
 import Container from '@styles/container'
 
 const Header = () => {
-  const { dispatch, state } = useContext(appContext)
+  const { appDispatch, appState } = useContext(appContext)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const handleScroll = () => {
@@ -51,9 +51,9 @@ const Header = () => {
           <Box>
             <IconButton
               color='inherit'
-              onClick={() => dispatch({ type: 'SET_THEME', payload: state.theme === 'light' ? 'dark' : 'light' })}
+              onClick={() => appDispatch({ type: 'SET_THEME', payload: appState.theme === 'light' ? 'dark' : 'light' })}
             >
-              {state.theme === 'dark'
+              {appState.theme === 'dark'
                 ? (
                   <FontAwesomeIcon icon={faSun} />
                 )
