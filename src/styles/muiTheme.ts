@@ -14,6 +14,10 @@ const themeBase: Partial<ThemeOptions> = {
   components: {
     MuiCssBaseline: {
       styleOverrides: `
+      :root {
+        --fa-li-width: 1.3rem;
+        --fa-li-margin: 1.5rem;
+      }
       /* roboto-300 - latin */
       @font-face {
         font-family: 'Roboto';
@@ -74,11 +78,19 @@ const themeBase: Partial<ThemeOptions> = {
       body {
         transition: background-color 0.5s ease, color 0.5s ease;
       }
+      a {
+        text-decoration: none;
+      }
       `
     },
     MuiAppBar: {
       defaultProps: {
         color: 'transparent'
+      }
+    },
+    MuiLink: {
+      defaultProps: {
+        underline: 'none'
       }
     }
   },
@@ -135,7 +147,10 @@ const themeBase: Partial<ThemeOptions> = {
       fontSize: '0.85rem'
     }
   },
-  spacing: 16
+  spacing: 16,
+  shape: {
+    borderRadius: '8px'
+  }
 }
 
 export const darkTheme: ThemeOptions = {
