@@ -4,13 +4,17 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material'
 import NextLink from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
 
 import Contained from '@components/layouts/Contained'
 import { sendContactForm } from '@services/contact'
 import { ContactFormData, contactFormSchema } from '@models/appModels'
+import createAlert from '@utilities/createAlert'
+import appContext from '@contexts/app/appContext'
+import Seo from '@components/Seo'
 
 const Contacto = () => {
+  const { appDispatch } = useContext(appContext)
   const formik = useFormik<ContactFormData>({
     initialValues: {
       name: '',
@@ -20,10 +24,19 @@ const Contacto = () => {
     onSubmit: async (values) => {
       try {
         await sendContactForm(values)
-        alert('Mensaje enviado')
-        formik.resetForm()
+        const successAlert = createAlert({ text: 'Mensaje enviado con éxito', severity: 'success' })
+        appDispatch({ type: 'ADD_ALERT', payload: successAlert })
+        setTimeout(() => {
+          appDispatch({ type: 'REMOVE_ALERT', payload: successAlert.id })
+        }
+        , 5000)
       } catch (error) {
-        console.error(error)
+        const errorAlert = createAlert({ text: 'Error al enviar el mensaje', severity: 'error' })
+        appDispatch({ type: 'ADD_ALERT', payload: errorAlert })
+        setTimeout(() => {
+          appDispatch({ type: 'REMOVE_ALERT', payload: errorAlert.id })
+        }
+        , 5000)
       }
     },
     validationSchema: contactFormSchema
@@ -35,6 +48,11 @@ const Contacto = () => {
   ]
   return (
     <Contained>
+      <Seo
+        title='Contacto'
+        description='Si tienes un proyecto, comunidad, negocio, etc que necesita un sitio web y deseas cotizar puedes contactarme enviando un mensaje...'
+      />
+
       <Typography variant="h1" align="center">Contáctame</Typography>
       <Typography variant="body1" align="center">
         Si tienes un proyecto, comunidad, negocio, etc que necesita un sitio web y deseas cotizar puedes contactarme enviando un mensaje mediante el formulario.

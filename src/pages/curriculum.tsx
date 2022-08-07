@@ -6,6 +6,7 @@ import Contained from '@components/layouts/Contained'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import formatDate from '@utilities/formatDate'
+import Seo from '@components/Seo'
 
 const Curriculum = () => {
   const experienceTypes = [
@@ -152,6 +153,9 @@ const Curriculum = () => {
   ]
   return (
     <Contained>
+      <Seo
+        title='Curriculum'
+      />
       <Box
         sx={(theme) => ({
           display: 'grid',
