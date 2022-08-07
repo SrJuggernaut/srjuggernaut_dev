@@ -6,7 +6,10 @@
     "develop": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -44,7 +47,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.1",
-    "husky": "^8.0.1",
+    "husky": "^8.0.0",
     "typescript": "4.7.4"
   }
 }

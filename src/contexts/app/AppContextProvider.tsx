@@ -7,7 +7,7 @@ import appReducer from '@contexts/app/appReducer'
 import { darkTheme, lightTheme } from '@styles/muiTheme'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { account } from '@lib/appwrite'
+// import { account } from '@lib/appwrite'
 
 export interface AppContextProviderProps {
   children: React.ReactNode
@@ -34,13 +34,13 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     if (localTheme) {
       appDispatch({ type: 'SET_THEME', payload: localTheme })
     }
-    account.getSession('current')
-      .then(() => {
-        appDispatch({ type: 'SET_IS_LOGGED_IN', payload: true })
-      })
-      .catch(() => {
-        appDispatch({ type: 'SET_IS_LOGGED_IN', payload: false })
-      })
+    // account.getSession('current')
+    //   .then(() => {
+    //     appDispatch({ type: 'SET_IS_LOGGED_IN', payload: true })
+    //   })
+    //   .catch(() => {
+    //     appDispatch({ type: 'SET_IS_LOGGED_IN', payload: false })
+    //   })
   }, [])
 
   return (
