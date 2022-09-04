@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 type ThemeState = 'light' | 'dark'
 
-const initialState: ThemeState = typeof window !== 'undefined' ? window.localStorage.getItem('theme') as 'light' | 'dark' : 'dark'
+const initialState: ThemeState = typeof window !== 'undefined' ? window.localStorage.getItem('theme') as 'light' | 'dark' || 'dark' : 'dark'
 
 export const themeSlice = createSlice({
   name: 'theme',
