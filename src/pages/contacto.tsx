@@ -4,17 +4,17 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material'
 import NextLink from 'next/link'
-import React, { useContext } from 'react'
+import React from 'react'
 
 import Contained from '@components/layouts/Contained'
 import { sendContactForm } from '@services/contact'
 import { ContactFormData, contactFormSchema } from '@models/appModels'
-import createAlert from '@utilities/createAlert'
-import appContext from '@contexts/app/appContext'
 import Seo from '@components/Seo'
+import useAppDispatch from '@hooks/useAppDispatch'
+import { addAlert } from '@lib/redux/slices'
 
 const Contacto = () => {
-  const { appDispatch } = useContext(appContext)
+  const dispatch = useAppDispatch()
   const formik = useFormik<ContactFormData>({
     initialValues: {
       name: '',
@@ -24,19 +24,9 @@ const Contacto = () => {
     onSubmit: async (values) => {
       try {
         await sendContactForm(values)
-        const successAlert = createAlert({ text: 'Mensaje enviado con éxito', severity: 'success' })
-        appDispatch({ type: 'ADD_ALERT', payload: successAlert })
-        setTimeout(() => {
-          appDispatch({ type: 'REMOVE_ALERT', payload: successAlert.id })
-        }
-        , 5000)
+        dispatch(addAlert({ title: 'Mensaje enviado con éxito', severity: 'success' }))
       } catch (error) {
-        const errorAlert = createAlert({ text: 'Error al enviar el mensaje', severity: 'error' })
-        appDispatch({ type: 'ADD_ALERT', payload: errorAlert })
-        setTimeout(() => {
-          appDispatch({ type: 'REMOVE_ALERT', payload: errorAlert.id })
-        }
-        , 5000)
+        dispatch(addAlert({ title: 'Error al enviar el mensaje', message: 'Ha sucedido un error al enviar el mensaje, por favor intenta más tarde', severity: 'error' }))
       }
     },
     validationSchema: contactFormSchema

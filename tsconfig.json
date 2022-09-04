@@ -35,6 +35,9 @@
       "@hooks/*": [
         "hooks/*"
       ],
+      "@interfaces/*": [
+        "interfaces/*"
+      ],
       "@lib/*": [
         "lib/*"
       ],

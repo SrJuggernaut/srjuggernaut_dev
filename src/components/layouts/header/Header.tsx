@@ -3,15 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Imagotype from '@components/logo/Imagotype'
 import Link from '@components/Link'
-import appContext from '@contexts/app/appContext'
 import Container from '@styles/container'
+import useAppDispatch from '@hooks/useAppDispatch'
+import useAppSelector from '@hooks/useAppSelector'
+import { setTheme } from '@lib/redux/slices'
 
 const Header = () => {
-  const { appDispatch, appState } = useContext(appContext)
+  // const { appDispatch, appState } = useContext(appContext)
+  const state = useAppSelector((state) => state)
+  const dispatch = useAppDispatch()
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const router = useRouter()
@@ -54,21 +58,21 @@ const Header = () => {
             transition: 'all 0.3s ease-in-out'
           }}
         >
-          <Link href='/' muiLinkProps={{ color: 'currentcolor' }}>
+          <Link href='/' muiLinkProps={{ color: 'inherit' }}>
             <Imagotype
               sx={{
                 height: '40px',
                 width: 'auto',
-                fill: 'currentColor'
+                fill: 'currentcolor'
               }}
             />
           </Link>
           <Box>
             <IconButton
               color='inherit'
-              onClick={() => appDispatch({ type: 'SET_THEME', payload: appState.theme === 'light' ? 'dark' : 'light' })}
+              onClick={() => dispatch(setTheme(state.theme === 'light' ? 'dark' : 'light'))}
             >
-              {appState.theme === 'dark'
+              {state.theme === 'dark'
                 ? (
                   <FontAwesomeIcon icon={faSun} />
                 )
@@ -111,7 +115,7 @@ const Header = () => {
               sx={{
                 height: '40px',
                 width: 'auto',
-                fill: 'currentColor'
+                fill: '#000'
               }}
             />
             <IconButton
