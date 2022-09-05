@@ -23,7 +23,8 @@ const Header = () => {
   const menuLinks = [
     { id: '10e1b01e-1f12-49a7-890a-d893c71c2688', label: 'Home', url: '/' },
     { id: '3d14fcb4-3541-44f6-ac43-1a09a54d387e', label: 'Curriculum', url: '/curriculum' },
-    { id: 'd866bb0b-d707-40df-9393-be71786008ee', label: 'Contacto', url: '/contacto' }
+    { id: 'd866bb0b-d707-40df-9393-be71786008ee', label: 'Contacto', url: '/contacto' },
+    { id: 'd866bb0b-d707-40df-9393-be71786008ef', label: 'Herramientas', url: '/tools' }
   ]
 
   const handleScroll = () => {
