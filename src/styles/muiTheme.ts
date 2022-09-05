@@ -92,6 +92,11 @@ const themeBase: Partial<ThemeOptions> = {
       defaultProps: {
         underline: 'none'
       }
+    },
+    MuiTypography: {
+      defaultProps: {
+        gutterBottom: true
+      }
     }
   },
   typography: {
@@ -136,6 +141,11 @@ const themeBase: Partial<ThemeOptions> = {
     body1: {
       fontFamily: 'Roboto',
       fontSize: '1rem'
+    },
+    body2: {
+      fontFamily: 'Roboto',
+      fontSize: '0.85rem',
+      opacity: 0.8
     },
     fontSize: 16,
     fontFamily: 'Roboto',
