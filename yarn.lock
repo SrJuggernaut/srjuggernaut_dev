@@ -3804,10 +3804,10 @@ split2@^3.0.0:
   dependencies:
     readable-stream "^3.0.0"
 
-srjuggernaut-mui-theme@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/srjuggernaut-mui-theme/-/srjuggernaut-mui-theme-0.1.2.tgz#0f0240796edd5016e0bf5bc6336f8f59e1f905aa"
-  integrity sha512-IUmSlT2XdI1Ute+bTObUX655kWWGwyAgUUs6PtMAa72kqq6Ijgci9OupGhv9+ER33Fj6gfL2OnzlrfD+MAawaw==
+srjuggernaut-mui-theme@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/srjuggernaut-mui-theme/-/srjuggernaut-mui-theme-0.2.0.tgz#4b002052818c52c4d8039d28492e90986714f564"
+  integrity sha512-wTnhwjuJ7xhIBQ0XO44G6rbitYgIETj5A6NItWPagzWZARW7iXxDkahGoNMFImF9GxQAMwaql5n3mjiDDkWbog==
 
 stop-iteration-iterator@^1.0.0:
   version "1.0.0"
