@@ -1,6 +1,5 @@
 import createEmotionServer from '@emotion/server/create-instance'
 import { createTheme } from '@mui/material'
-import { darkTheme } from '@styles/muiTheme'
 import createEmotionCache from '@utilities/createEmotionCache'
 import { AppType } from 'next/app'
 import Document, {
@@ -12,6 +11,7 @@ import Document, {
   NextScript
 } from 'next/document'
 import * as React from 'react'
+import { darkTheme } from 'srjuggernaut-mui-theme'
 import { MyAppProps } from './_app'
 
 interface MyDocumentProps extends DocumentProps {

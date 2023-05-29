@@ -7,6 +7,12 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import createEmotionCache from '@utilities/createEmotionCache'
 
+import '@fontsource/roboto/latin-300.css'
+import '@fontsource/roboto/latin-400.css'
+import '@fontsource/roboto/latin-700.css'
+import '@fontsource/source-code-pro/latin-400.css'
+import '@fontsource/source-code-pro/latin-900.css'
+
 config.autoAddCss = false
 
 export interface MyAppProps extends AppProps {
@@ -19,6 +25,7 @@ const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   return (
     <CacheProvider value={emotionCache}>
+
       <AppContextProvider>
         <Head>
           <title key="title">SrJuggernaut Dev</title>

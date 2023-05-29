@@ -4,9 +4,9 @@ import React, { useEffect, useMemo, useReducer } from 'react'
 
 import appContext, { AppState } from '@contexts/app/appContext'
 import appReducer from '@contexts/app/appReducer'
-import { darkTheme, lightTheme } from '@styles/muiTheme'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { darkTheme, lightTheme } from 'srjuggernaut-mui-theme'
 // import { account } from '@lib/appwrite'
 
 export interface AppContextProviderProps {
