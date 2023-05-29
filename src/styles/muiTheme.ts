@@ -149,7 +149,7 @@ const themeBase: Partial<ThemeOptions> = {
   },
   spacing: 16,
   shape: {
-    borderRadius: '8px'
+    borderRadius: 8
   }
 }
 

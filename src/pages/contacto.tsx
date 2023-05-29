@@ -1,17 +1,16 @@
-import { useFormik } from 'formik'
 import { faFacebook, faInstagram, faLinkedin, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material'
+import { useFormik } from 'formik'
 import NextLink from 'next/link'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 
+import Seo from '@components/Seo'
 import Contained from '@components/layouts/Contained'
-import { sendContactForm } from '@services/contact'
+import appContext from '@contexts/app/appContext'
 import { ContactFormData, contactFormSchema } from '@models/appModels'
 import createAlert from '@utilities/createAlert'
-import appContext from '@contexts/app/appContext'
-import Seo from '@components/Seo'
 
 const Contacto = () => {
   const { appDispatch } = useContext(appContext)
@@ -23,11 +22,16 @@ const Contacto = () => {
     },
     onSubmit: async (values) => {
       try {
-        await sendContactForm(values)
-        const successAlert = createAlert({ text: 'Mensaje enviado con éxito', severity: 'success' })
-        appDispatch({ type: 'ADD_ALERT', payload: successAlert })
+        appDispatch({
+          type: 'ADD_ALERT',
+          payload: {
+            id: '331731c0-7a5f-4dc3-b83d-1901c8c2d7cd',
+            severity: 'info',
+            text: 'No se ha implementado el envío de mensajes, por favor contácteme por mis redes sociales'
+          }
+        })
         setTimeout(() => {
-          appDispatch({ type: 'REMOVE_ALERT', payload: successAlert.id })
+          appDispatch({ type: 'REMOVE_ALERT', payload: '331731c0-7a5f-4dc3-b83d-1901c8c2d7cd' })
         }
         , 5000)
       } catch (error) {
@@ -148,35 +152,31 @@ const Contacto = () => {
             }}
           >
             {redesSociales.map(redSocial => (
-              <NextLink
+              <IconButton
                 key={redSocial.id}
+                component={NextLink}
                 href={redSocial.url}
-                passHref
+                color="primary"
+                target="_blank"
               >
-                <IconButton
-                  component="a"
-                  color="primary"
-                  target="_blank"
+                <Box
+                  sx={{
+                    display: 'flex',
+                    aspectRatio: '1/1',
+                    padding: '5px'
+                  }}
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      aspectRatio: '1/1',
-                      padding: '5px'
-                    }}
-                  >
-                    {{
-                      facebook: <FontAwesomeIcon icon={faFacebook} size="lg" />,
-                      twitter: <FontAwesomeIcon icon={faTwitter} size="lg" />,
-                      instagram: <FontAwesomeIcon icon={faInstagram} size="lg" />,
-                      twitch: <FontAwesomeIcon icon={faTwitch} size="lg" />,
-                      youtube: <FontAwesomeIcon icon={faYoutube} size="lg" />,
-                      linkedin: <FontAwesomeIcon icon={faLinkedin} size="lg" />
+                  {{
+                    facebook: <FontAwesomeIcon icon={faFacebook} size="lg" />,
+                    twitter: <FontAwesomeIcon icon={faTwitter} size="lg" />,
+                    instagram: <FontAwesomeIcon icon={faInstagram} size="lg" />,
+                    twitch: <FontAwesomeIcon icon={faTwitch} size="lg" />,
+                    youtube: <FontAwesomeIcon icon={faYoutube} size="lg" />,
+                    linkedin: <FontAwesomeIcon icon={faLinkedin} size="lg" />
 
-                    }[redSocial.icon]}
-                  </Box>
-                </IconButton>
-              </NextLink>
+                  }[redSocial.icon]}
+                </Box>
+              </IconButton>
             ))}
           </Box>
         </Box>

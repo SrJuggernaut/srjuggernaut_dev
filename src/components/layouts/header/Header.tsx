@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
-import Imagotype from '@components/logo/Imagotype'
 import Link from '@components/Link'
+import Imagotype from '@components/logo/Imagotype'
 import appContext from '@contexts/app/appContext'
 import Container from '@styles/container'
 
@@ -127,11 +127,9 @@ const Header = () => {
               const isCurrent = link.url === router.pathname
               return (
                 <ListItem key={link.id} disablePadding>
-                  <NextLink href={link.url} passHref>
-                    <ListItemButton component="a" sx={{ width: '100%' }} selected={isCurrent}>
-                      <ListItemText primary={link.label} />
-                    </ListItemButton>
-                  </NextLink>
+                  <ListItemButton component={NextLink} href={link.url} sx={{ width: '100%' }} selected={isCurrent}>
+                    <ListItemText primary={link.label} />
+                  </ListItemButton>
                 </ListItem>
               )
             })}

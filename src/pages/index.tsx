@@ -73,6 +73,7 @@ const Home: NextPage = () => {
             <div>
               <Image
                 src="/img/Juan_Carlos_Sanchez.png"
+                alt="Juan Carlos Sánchez Méndez"
                 width={600}
                 height={600}
               />
@@ -88,16 +89,13 @@ const Home: NextPage = () => {
                 padding: 1
               }}
             >
-              <NextLink
+              <Button
+                LinkComponent={NextLink}
                 href="/curriculum"
-                passHref
+                variant="contained"
               >
-                <Button
-                  variant="contained"
-                >
-                  Ver Curriculum
-                </Button>
-              </NextLink>
+                Ver Curriculum
+              </Button>
             </Box>
           </div>
         </Box>

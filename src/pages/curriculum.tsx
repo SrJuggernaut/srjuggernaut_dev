@@ -1,12 +1,11 @@
 import { Box, Button, Typography } from '@mui/material'
 import Image from 'next/image'
-import React from 'react'
 
-import Contained from '@components/layouts/Contained'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import formatDate from '@utilities/formatDate'
 import Seo from '@components/Seo'
+import Contained from '@components/layouts/Contained'
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import formatDate from '@utilities/formatDate'
 
 const Curriculum = () => {
   const experienceTypes = [
@@ -172,6 +171,7 @@ const Curriculum = () => {
         <Box>
           <Image
             src="/img/Juan_Carlos_Sanchez.png"
+            alt="Juan Carlos Sánchez Méndez"
             width={600}
             height={600}
           />
