@@ -1,20 +1,26 @@
 'use client'
+import useHandleError from '@/hooks/useHandleError'
+import { createContactForm } from '@/services/frontend/contactForm'
+import useStore from '@/state/useStore'
+import { ContactFormData } from '@/types/contactForm'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, TextField } from '@mui/material'
 import { useFormik } from 'formik'
+import { nanoid } from 'nanoid'
 import { FC } from 'react'
-import { InferType, object, string } from 'yup'
+import { ObjectSchema, object, string } from 'yup'
 
-export const contactFormSchema = object({
+export const contactFormSchema: ObjectSchema<ContactFormData> = object({
   name: string().required('El nombre es requerido'),
   email: string().email('El email no es válido').required('El email es requerido'),
   message: string().required('El mensaje es requerido')
 })
 
-export type ContactFormData = InferType<typeof contactFormSchema>
-
 const ContactForm:FC = () => {
+  const { handleError } = useHandleError()
+  const addAlert = useStore((state) => state.addAlert)
+
   const formik = useFormik<ContactFormData>({
     initialValues: {
       name: '',
@@ -22,7 +28,17 @@ const ContactForm:FC = () => {
       message: ''
     },
     onSubmit: async (values) => {
-      // TODO: Implementar envío de mensajes
+      try {
+        await createContactForm(values)
+        addAlert({
+          id: nanoid(),
+          title: 'Formulario enviado',
+          text: 'El formulario se envió correctamente',
+          severity: 'success'
+        })
+      } catch (error) {
+        handleError(error, 'Error al enviar el formulario', 'Ocurrio un error al enviar el formulario. Por favor, intenta de nuevo.')
+      }
     },
     validationSchema: contactFormSchema
   })
