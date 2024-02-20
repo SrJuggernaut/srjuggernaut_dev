@@ -7,6 +7,7 @@ import { FC } from 'react'
 
 const Snackbar = dynamic(() => import('@mui/material/Snackbar'), { ssr: false, suspense: true })
 const Alert = dynamic(() => import('@mui/material/Alert'), { ssr: false, suspense: true })
+const AlertTitle = dynamic(() => import('@mui/material/AlertTitle'), { ssr: false, suspense: true })
 const IconButton = dynamic(() => import('@mui/material/IconButton'), { ssr: false, suspense: true })
 const Box = dynamic(() => import('@mui/material/Box'), { ssr: false, suspense: true })
 
@@ -28,7 +29,6 @@ const Consumer:FC = () => {
             }}
             action={(
               <IconButton onClick={() => {
-                // appDispatch({ type: 'REMOVE_ALERT', payload: alerts[0].id })
                 removeAlert(alerts[0].id)
               }} >
                 <Box
@@ -48,6 +48,7 @@ const Consumer:FC = () => {
               </IconButton>
             )}
           >
+            <AlertTitle>{alerts[0].title}</AlertTitle>
             {alerts[0].text}
           </Alert>
         </Snackbar>
