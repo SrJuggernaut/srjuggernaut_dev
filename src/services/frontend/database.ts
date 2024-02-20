@@ -1,0 +1,1 @@
+export const DATABASE_ID = 'WEB_APP_DATABASE'

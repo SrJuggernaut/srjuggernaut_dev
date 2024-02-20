@@ -1,4 +1,5 @@
 import ContactForm from '@/app/contacto/_components/ContactForm'
+import { ensureContactFormCollection } from '@/services/backend/contactForm'
 import { faFacebook, faInstagram, faLinkedin, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, IconButton, Typography } from '@mui/material'
@@ -9,7 +10,8 @@ const redesSociales = [
   { id: 'cb119fe1-cfb2-4a74-bc5b-2efbf2f1265f', name: 'Twitter', url: 'https://twitter.com/SrJuggernaut', icon: 'twitter' }
 ]
 
-const ContactoPage = () => {
+const ContactoPage = async () => {
+  await ensureContactFormCollection()
   return (
     <>
       <Typography variant="h1" align="center">Contáctame</Typography>

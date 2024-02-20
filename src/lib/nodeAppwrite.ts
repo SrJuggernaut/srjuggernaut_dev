@@ -1,11 +1,15 @@
-import { Client } from 'node-appwrite'
+import { Client, Databases, Teams } from 'node-appwrite'
 
 const client = new Client()
 
 client
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT ?? '')
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID ?? '')
-  .setKey(process.env.NEXT_PUBLIC_APPWRITE_API_KEY ?? '')
+  .setKey(process.env.APPWRITE_KEY_SECRET ?? '')
 
-export type { ID, Models } from 'node-appwrite'
+export const databases = new Databases(client)
+
+export const teams = new Teams(client)
+
+export { Permission, Role, type Models } from 'node-appwrite'
 export { client }
