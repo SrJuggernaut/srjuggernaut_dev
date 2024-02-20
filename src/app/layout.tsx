@@ -1,3 +1,4 @@
+import Provider from '@/app/_components/Provider'
 import Footer from '@/components/layout/Footer'
 import Header from '@/components/layout/Header'
 import '@fontsource/roboto/latin-300.css'
@@ -11,7 +12,6 @@ import { Container } from '@mui/material'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { Metadata } from 'next'
 import { FC, ReactNode } from 'react'
-import Provider from './_components/Provider'
 
 export const metadata: Metadata = {
   title: 'SrJuggernaut Dev',
