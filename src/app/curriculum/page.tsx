@@ -155,6 +155,7 @@ const CurriculumPage:FC = () => {
         sx={{
           display: 'grid',
           alignItems: 'center',
+          justifyItems: 'center',
           gridTemplateColumns: {
             xs: '1fr',
             md: '30% 1fr',
@@ -162,13 +163,23 @@ const CurriculumPage:FC = () => {
           }
         }}
       >
-        <Box>
-          {/* TODO: Check image sizing */}
+        <Box
+          sx={{
+            position: 'relative',
+            width: '100%',
+            maxWidth: '300px',
+            height: '100%',
+            aspectRatio: '1/1'
+          }}
+        >
           <NextImage
             src="/img/Juan_Carlos_Sanchez.png"
             alt="Juan Carlos Sánchez Méndez"
-            width={600}
-            height={600}
+            fill
+            style={{
+              objectFit: 'contain',
+              objectPosition: 'center'
+            }}
           />
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>

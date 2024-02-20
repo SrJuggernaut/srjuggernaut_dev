@@ -54,7 +54,7 @@ const Header = () => {
             transition: 'all 0.3s ease-in-out'
           }}
         >
-          <MuiLink component={NextLink} href='/' >
+          <MuiLink sx={{ color: 'inherit' }} component={NextLink} href='/' >
             <Imagotype
               sx={{
                 height: '40px',
@@ -124,7 +124,9 @@ const Header = () => {
             </IconButton>
           </Box>
           <Divider />
-          <List>
+          <List
+            onClick={() => setIsDrawerOpened(false)}
+          >
             {menuLinks.map((link) => {
               const isCurrent = link.url === pathname
               return (

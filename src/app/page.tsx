@@ -77,14 +77,23 @@ const HomePage = () => {
               }
             }}
           >
-            <div>
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+                aspectRatio: '1/1'
+              }}
+            >
               <NextImage
                 src="/img/Juan_Carlos_Sanchez.png"
                 alt="Juan Carlos Sánchez Méndez"
-                width={600}
-                height={600}
+                fill
+                style={{
+                  objectFit: 'contain'
+                }}
               />
-            </div>
+            </Box>
           </Box>
           <div>
             <Typography gutterBottom variant="h3" align="center">Juan Carlos Sánchez Méndez</Typography>
