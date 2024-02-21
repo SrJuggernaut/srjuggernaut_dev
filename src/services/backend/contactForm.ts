@@ -12,7 +12,7 @@ export const ensureContactFormCollection = (() => {
     await ensureAdminTeam()
     if (existCollection) return
     try {
-      await databases.getCollection(CONTACT_FORM_COLLECTION_ID, DATABASE_ID)
+      await databases.getCollection(DATABASE_ID, CONTACT_FORM_COLLECTION_ID)
     } catch {
       const permissions = [
         Permission.create(Role.any()),
