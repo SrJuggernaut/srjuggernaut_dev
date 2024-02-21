@@ -1,3 +1,4 @@
+import Consumer from '@/app/_components/Consumer'
 import Provider from '@/app/_components/Provider'
 import Footer from '@/components/layout/Footer'
 import Header from '@/components/layout/Header'
@@ -42,6 +43,7 @@ const RootLayout:FC<RootLayoutProps> = ({ children }) => {
               {children}
             </Container>
             <Footer />
+            <Consumer />
           </Provider>
         </body>
       </AppRouterCacheProvider>
