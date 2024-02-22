@@ -1,11 +1,12 @@
+import { APPWRITE_ENDPOINT, APPWRITE_KEY_SECRET, APPWRITE_PROJECT_ID } from '@/lib/env'
 import { Client, Databases, Teams } from 'node-appwrite'
 
 const client = new Client()
 
 client
-  .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT ?? '')
-  .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID ?? '')
-  .setKey(process.env.APPWRITE_KEY_SECRET ?? '')
+  .setEndpoint(APPWRITE_ENDPOINT)
+  .setProject(APPWRITE_PROJECT_ID)
+  .setKey(APPWRITE_KEY_SECRET)
 
 export const databases = new Databases(client)
 

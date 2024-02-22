@@ -1,5 +1,5 @@
 import { ID, databases } from '@/lib/appwrite'
-import { DATABASE_ID } from '@/services/frontend/database'
+import { DATABASE_ID } from '@/lib/env'
 import { ContactFormData, ContactFormDocument, ContactFormList } from '@/types/contactForm'
 
 export const CONTACT_FORM_COLLECTION_ID = 'CONTACT_FORM'

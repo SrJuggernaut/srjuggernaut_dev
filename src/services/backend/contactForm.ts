@@ -1,9 +1,7 @@
-import { databases, Permission, Role } from '@/lib/nodeAppwrite'
-import { DATABASE_ID, ensureDatabase } from '@/services/backend/database'
-import { ADMIN_TEAM_ID, ensureAdminTeam } from '@/services/backend/teams'
-
-export const CONTACT_FORM_COLLECTION_ID = 'CONTACT_FORM'
-export const CONTACT_FORM_COLLECTION_NAME = 'Contact Forms'
+import { ADMIN_TEAM_ID, CONTACT_FORM_COLLECTION_ID, CONTACT_FORM_COLLECTION_NAME, DATABASE_ID } from '@/lib/env'
+import { Permission, Role, databases } from '@/lib/nodeAppwrite'
+import { ensureDatabase } from '@/services/backend/database'
+import { ensureAdminTeam } from '@/services/backend/teams'
 
 export const ensureContactFormCollection = (() => {
   let existCollection = false

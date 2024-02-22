@@ -1,7 +1,5 @@
+import { DATABASE_ID, DATABASE_NAME } from '@/lib/env'
 import { databases } from '@/lib/nodeAppwrite'
-
-export const DATABASE_ID = 'WEB_APP_DATABASE'
-export const DATABASE_NAME = 'Web App Database'
 
 export const ensureDatabase = (() => {
   let existDatabase = false

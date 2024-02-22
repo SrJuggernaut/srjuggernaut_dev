@@ -1,12 +1,10 @@
+import { ADMIN_EMAIL, ADMIN_TEAM_ID, ADMIN_TEAM_NAME } from '@/lib/env'
 import { teams } from '@/lib/nodeAppwrite'
-
-export const ADMIN_TEAM_ID = 'ADMIN'
-export const ADMIN_TEAM_NAME = 'Administrator'
 
 const ensureAdmin = (() => {
   let isAdmin = false
   return async () => {
-    const adminEmail = process.env.ADMIN_EMAIL ?? ''
+    const adminEmail = ADMIN_EMAIL
     if (adminEmail === '') {
       // If there is no admin email, we don't need to ensure it
       isAdmin = true
