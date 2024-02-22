@@ -22,6 +22,7 @@ export const ensureContactFormCollection = (() => {
       await databases.createStringAttribute(DATABASE_ID, CONTACT_FORM_COLLECTION_ID, 'name', 128, true, undefined, false)
       await databases.createEmailAttribute(DATABASE_ID, CONTACT_FORM_COLLECTION_ID, 'email', true, undefined, false)
       await databases.createStringAttribute(DATABASE_ID, CONTACT_FORM_COLLECTION_ID, 'message', 1024, true, undefined, false)
+      await databases.createBooleanAttribute(DATABASE_ID, CONTACT_FORM_COLLECTION_ID, 'read', false, true)
     } finally {
       existCollection = true
     }

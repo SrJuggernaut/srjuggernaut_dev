@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid'
 import { FC } from 'react'
 import { ObjectSchema, object, string } from 'yup'
 
-export const contactFormSchema: ObjectSchema<ContactFormData> = object({
+export const contactFormSchema: ObjectSchema<Omit<ContactFormData, 'read'>> = object({
   name: string().required('El nombre es requerido'),
   email: string().email('El email no es válido').required('El email es requerido'),
   message: string().required('El mensaje es requerido')
@@ -36,6 +36,7 @@ const ContactForm:FC = () => {
           text: 'El formulario se envió correctamente',
           severity: 'success'
         })
+        formik.resetForm()
       } catch (error) {
         handleError(error, 'Error al enviar el formulario', 'Ocurrio un error al enviar el formulario. Por favor, intenta de nuevo.')
       }
