@@ -1,8 +1,6 @@
 import { ID, databases } from '@/lib/appwrite'
-import { DATABASE_ID } from '@/lib/env'
+import { CONTACT_FORM_COLLECTION_ID, DATABASE_ID } from '@/lib/env'
 import { ContactFormData, ContactFormDocument, ContactFormList } from '@/types/contactForm'
-
-export const CONTACT_FORM_COLLECTION_ID = 'CONTACT_FORM'
 
 type CreateContactForm = (data: ContactFormData) => Promise<ContactFormDocument>
 
