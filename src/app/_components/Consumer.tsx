@@ -1,13 +1,53 @@
 'use client'
+import useHandleError from '@/hooks/useHandleError'
+import { getCurrentSession, getCurrentUser, getCurrentUserTeams } from '@/services/frontend/account'
 import useStore from '@/state/useStore'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Alert, AlertTitle, Box, IconButton, Snackbar } from '@mui/material'
-import { FC } from 'react'
+import { AppwriteException } from 'appwrite'
+import { FC, useCallback, useEffect } from 'react'
 
 const Consumer:FC = () => {
+  const { handleError } = useHandleError()
   const alerts = useStore((state) => state.alerts)
   const removeAlert = useStore((state) => state.removeAlert)
+  const status = useStore((state) => state.status)
+  const setStatus = useStore((state) => state.setStatus)
+  const setAccount = useStore((state) => state.setAccount)
+  const setTeams = useStore((state) => state.setTeams)
+  const setSession = useStore((state) => state.setSession)
+
+  const startSession = useCallback(async () => {
+    setStatus('loading')
+    try {
+      const session = await getCurrentSession()
+      const user = await getCurrentUser()
+      const teams = await getCurrentUserTeams()
+      setSession(session)
+      setAccount(user)
+      setTeams(teams)
+    } catch (error) {
+      setAccount(undefined)
+      setTeams(undefined)
+      setSession(undefined)
+      if (!(error instanceof AppwriteException && error.code === 401)) {
+        throw error
+      }
+    } finally {
+      setStatus('idle')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (status === 'starting') {
+      startSession()
+        .catch(error => {
+          handleError(error, 'Error al cargar la sesión', 'Ocurrio un error al cargar la sesión. Por favor, inicia de nuevo la sesión.')
+        })
+    }
+  }, [status])
+
   return (
     <>
       {alerts.length > 0 && (
