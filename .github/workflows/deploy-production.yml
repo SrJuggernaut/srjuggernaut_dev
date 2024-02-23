@@ -2,6 +2,9 @@ name: Deploy Ci Production
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - production
 
 jobs:
   deploy:
