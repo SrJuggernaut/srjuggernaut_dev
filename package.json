@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "develop": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "bun install && next build",
+    "start": "bun run build &&next start",
     "lint": "next lint",
     "postinstall": "husky install"
   },
