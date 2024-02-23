@@ -1,32 +1,32 @@
 'use client'
 import Imagotype from '@/components/assets/Imagotype'
+import { ADMIN_TEAM_ID } from '@/lib/env'
 import useStore from '@/state/useStore'
-import { faBars, faMoon, faSun, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faMoon, faSun, faTableCellsLarge, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AppBar, Box, Container, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Link as MuiLink } from '@mui/material'
 import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+const menuLinks = [
+  { id: '10e1b01e-1f12-49a7-890a-d893c71c2688', label: 'Home', url: '/' },
+  { id: '3d14fcb4-3541-44f6-ac43-1a09a54d387e', label: 'Curriculum', url: '/curriculum' },
+  { id: 'd866bb0b-d707-40df-9393-be71786008ee', label: 'Contacto', url: '/contacto' }
+]
+
 const Header = () => {
+  const status = useStore((state) => state.status)
+  const account = useStore((state) => state.account)
+  const teams = useStore((state) => state.teams)
   const toggleTheme = useStore((state) => state.toggleTheme)
   const theme = useStore((state) => state.theme)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
 
-  const menuLinks = [
-    { id: '10e1b01e-1f12-49a7-890a-d893c71c2688', label: 'Home', url: '/' },
-    { id: '3d14fcb4-3541-44f6-ac43-1a09a54d387e', label: 'Curriculum', url: '/curriculum' },
-    { id: 'd866bb0b-d707-40df-9393-be71786008ee', label: 'Contacto', url: '/contacto' }
-  ]
-
   const handleScroll = () => {
-    if (window.scrollY > 15) {
-      setIsScrolled(true)
-    } else {
-      setIsScrolled(false)
-    }
+    setIsScrolled(window.scrollY > 15)
   }
 
   useEffect(() => {
@@ -64,6 +64,15 @@ const Header = () => {
             />
           </MuiLink>
           <Box>
+            {status === 'idle' && account !== undefined && teams !== undefined && teams.teams.some((team) => team.$id === ADMIN_TEAM_ID) && (
+              <IconButton
+                component={NextLink}
+                href='/admin'
+                color='inherit'
+              >
+                <FontAwesomeIcon icon={faTableCellsLarge} />
+              </IconButton>
+            )}
             <IconButton
               color='inherit'
               onClick={() => {

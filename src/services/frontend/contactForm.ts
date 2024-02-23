@@ -14,10 +14,10 @@ export const getContactForm:GetContactForm = async (id) => {
   return await databases.getDocument<ContactFormDocument>(DATABASE_ID, CONTACT_FORM_COLLECTION_ID, id)
 }
 
-type GetContactForms = () => Promise<ContactFormList>
+type GetContactForms = (queries?: string[]) => Promise<ContactFormList>
 
-export const getContactForms:GetContactForms = async () => {
-  return await databases.listDocuments<ContactFormDocument>(DATABASE_ID, CONTACT_FORM_COLLECTION_ID)
+export const getContactForms:GetContactForms = async (queries) => {
+  return await databases.listDocuments<ContactFormDocument>(DATABASE_ID, CONTACT_FORM_COLLECTION_ID, queries)
 }
 
 type UpdateContactForm = (id: string, data: ContactFormData) => Promise<ContactFormDocument>

@@ -13,5 +13,5 @@ export const account = new Account(client)
 
 export const teams = new Teams(client)
 
-export { AppwriteException, ID, type Models } from 'appwrite'
+export { AppwriteException, ID, Query, type Models } from 'appwrite'
 export { client }
