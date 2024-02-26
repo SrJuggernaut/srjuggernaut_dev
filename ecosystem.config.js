@@ -21,9 +21,9 @@ module.exports = {
       ref: 'origin/main',
       repo: 'https://github.com/SrJuggernaut/srjuggernaut_dev',
       path: process.env.DEPLOY_PATH,
-      'post-deploy': 'pm2 --silent startOrRestart ecosystem.config.js',
+      'post-deploy': 'pm2 --silent startOrRestart ecosystem.config.js && pm2 save',
       env: {
-        name: process.env.APP_NAME,
+        APP_NAME: process.env.APP_NAME,
         PORT: process.env.PORT,
         NEXT_PUBLIC_APPWRITE_ENDPOINT: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,
         NEXT_PUBLIC_APPWRITE_PROJECT_ID: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID,
@@ -37,9 +37,9 @@ module.exports = {
       ref: 'origin/develop',
       repo: 'https://github.com/SrJuggernaut/srjuggernaut_dev',
       path: process.env.DEPLOY_PATH,
-      'post-deploy': 'pm2 --silent startOrRestart ecosystem.config.js',
+      'post-deploy': 'pm2 --silent startOrRestart ecosystem.config.js && pm2 save',
       env: {
-        name: process.env.APP_NAME,
+        APP_NAME: process.env.APP_NAME,
         PORT: process.env.PORT,
         NEXT_PUBLIC_APPWRITE_ENDPOINT: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,
         NEXT_PUBLIC_APPWRITE_PROJECT_ID: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID,
