@@ -1,13 +1,14 @@
 {
-  "name": "next-template",
+  "name": "srjuggernaut_dev",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "develop": "next dev",
-    "build": "bun install && next build",
-    "start": "bun run build &&next start",
+    "build": "next build",
+    "prestart": "bun install --frozen-lockfile --dev && next build",
+    "start": "next start",
     "lint": "next lint",
-    "postinstall": "husky install"
+    "prepare": "if [ $NODE_ENV != 'production' ]; then husky; fi"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -19,7 +20,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mui/material": "^5.13.2",
+    "@mui/material": "^5.15.11",
     "@mui/material-nextjs": "^5.15.9",
     "@mui/x-data-grid": "^6.19.4",
     "appwrite": "^13.0.1",
@@ -31,26 +32,27 @@
     "node-appwrite": "^11.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.33.2",
     "srjuggernaut-mui-theme": "1.0.0",
+    "typescript": "5.3.3",
     "yup": "^1.2.0",
     "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.2",
-    "@types/node": "^20.11.19",
-    "@types/react": "^18.2.57",
+    "@types/node": "20.11.20",
+    "@types/react": "^18.2.58",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
-    "eslint": "^8.41.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-n": "^16.0.0",
-    "husky": "^9.0.11",
-    "typescript": "5.3.3"
+    "husky": "^9.0.11"
   }
 }
