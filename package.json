@@ -8,7 +8,7 @@
     "prestart": "bun install --frozen-lockfile --dev && next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "if [ $NODE_ENV != 'production' ]; then husky; fi"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
