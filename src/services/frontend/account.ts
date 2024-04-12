@@ -1,7 +1,7 @@
 import { account, teams } from '@/lib/appwrite'
 
 export const login = async (email: string, password: string) => {
-  return await account.createEmailSession(email, password)
+  return await account.createEmailPasswordSession(email, password)
 }
 
 export const getCurrentSession = async () => {

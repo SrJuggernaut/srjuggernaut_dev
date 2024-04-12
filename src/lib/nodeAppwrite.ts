@@ -1,5 +1,5 @@
 import { APPWRITE_ENDPOINT, APPWRITE_KEY_SECRET, APPWRITE_PROJECT_ID } from '@/lib/env'
-import { Client, Databases, Teams } from 'node-appwrite'
+import { Client, Databases, Storage, Teams } from 'node-appwrite'
 
 const client = new Client()
 
@@ -12,5 +12,7 @@ export const databases = new Databases(client)
 
 export const teams = new Teams(client)
 
-export { Permission, Role, type Models } from 'node-appwrite'
+export const storage = new Storage(client)
+
+export { Compression, Permission, Role, type Models } from 'node-appwrite'
 export { client }

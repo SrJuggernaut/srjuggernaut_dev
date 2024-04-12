@@ -1,4 +1,5 @@
 import { Models } from '@/lib/appwrite'
+
 export interface ContactFormData {
   name: string
   email: string
