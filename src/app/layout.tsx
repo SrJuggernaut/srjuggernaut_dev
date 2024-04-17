@@ -10,7 +10,7 @@ import '@fontsource/source-code-pro/latin-900.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { Container } from '@mui/material'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import { Metadata } from 'next'
 import { FC, ReactNode } from 'react'
 
@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: 'SrJuggernaut Dev',
   description: 'Soy un FullStack developer Javascript.'
 }
+
 config.autoAddCss = false
 
 interface RootLayoutProps {
@@ -27,8 +28,8 @@ interface RootLayoutProps {
 const RootLayout:FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="es">
-      <AppRouterCacheProvider>
-        <body>
+      <body>
+        <AppRouterCacheProvider>
           <Provider>
             <Header />
             <Container
@@ -45,8 +46,8 @@ const RootLayout:FC<RootLayoutProps> = ({ children }) => {
             <Footer />
             <Consumer />
           </Provider>
-        </body>
-      </AppRouterCacheProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   )
 }
