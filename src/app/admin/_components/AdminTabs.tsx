@@ -5,8 +5,9 @@ import { Box, Skeleton, Tab, Tabs, Typography } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import TabProjects from './TabProjects'
 
-type ExistentTab = 'initial' | 'contact-forms'
+type ExistentTab = 'initial' | 'contact-forms' | 'projects'
 
 const AdminTabs = () => {
   const status = useStore((state) => state.status)
@@ -20,6 +21,7 @@ const AdminTabs = () => {
       router.push('/login')
     }
   }, [status])
+
   if (status === 'starting' || status === 'loading') {
     return (
       <>
@@ -30,6 +32,7 @@ const AdminTabs = () => {
       </>
     )
   }
+
   return (
     <>
       <Box
@@ -41,6 +44,7 @@ const AdminTabs = () => {
         >
           <Tab label="Initial" value="initial" />
           <Tab label="Contactos" value="contact-forms" />
+          <Tab label="Portafolio" value="projects" />
         </Tabs>
       </Box>
       <AnimatePresence
@@ -76,6 +80,20 @@ const AdminTabs = () => {
             exit={{ opacity: 0 }}
           >
             <TabContactForm />
+          </Box>
+        )}
+        {currentTaB === 'projects' && (
+          <Box
+            key="projects"
+            component={motion.div}
+            sx={{
+              padding: 2
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <TabProjects />
           </Box>
         )}
       </AnimatePresence>
