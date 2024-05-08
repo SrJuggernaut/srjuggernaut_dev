@@ -1,11 +1,14 @@
 'use client'
+import ProjectLinkEditor from '@/app/admin/projects/_componentes/ProjectLinkEditor'
+import SeoImageSelector from '@/components/seo/SeoImageSelector'
+import SeoImageUploader from '@/components/seo/SeoImageUploader'
 import { ProjectData, ProjectLink } from '@/types/project'
 import { faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik'
+import NextImage from 'next/image'
 import { FC } from 'react'
-import ProjectLinkEditor from '../_componentes/ProjectLinkEditor'
 
 const CreateProjectPage:FC = () => {
   const formik = useFormik<ProjectData>({
@@ -13,7 +16,7 @@ const CreateProjectPage:FC = () => {
       title: '',
       slug: '',
       description: '',
-      image: '',
+      image: '/img/DefaultSeoImage.jpg',
       links: [],
       technologies: [],
       content: []
@@ -91,6 +94,51 @@ const CreateProjectPage:FC = () => {
           minRows={3}
         />
         {/* TODO: image upload & preview component  */}
+        <Typography variant="h2" gutterBottom>Imagen</Typography>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              md: '1fr 1fr'
+            },
+            gap: 2
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '120/63',
+              border: '1px solid',
+              borderColor: 'divider'
+            }}
+          >
+            <NextImage
+              src={formik.values.image}
+              alt="Imagen del proyecto"
+              fill
+            />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2
+            }}
+          >
+            <SeoImageUploader
+              onSelected={(imageUrl) => {
+                formik.setFieldValue('image', imageUrl)
+              }}
+            />
+            <SeoImageSelector
+              onSelect={(imageUrl) => {
+                formik.setFieldValue('image', imageUrl)
+              }}
+            />
+          </Box>
+        </Box>
         <Typography variant="h2" gutterBottom>Links</Typography>
         <Box>
           {formik.values.links.length > 0

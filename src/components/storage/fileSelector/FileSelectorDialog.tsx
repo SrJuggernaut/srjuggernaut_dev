@@ -31,7 +31,6 @@ const FileSelectorDialog: FC<FileSelectorDialogProps> = ({ DialogTitleText, Dial
     }
     getFilesList(bucketId, queries)
       .then((files) => {
-        console.log('Data fetched:', files)
         setCurrentFiles(files)
       })
       .catch((error) => {
