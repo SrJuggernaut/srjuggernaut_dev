@@ -1,8 +1,8 @@
 import { ID, databases } from '@/lib/appwrite'
 import { DATABASE_ID, PROJECT_COLLECTION_ID } from '@/lib/env'
+import { contentSchema } from '@/services/frontend/content'
 import { ProjectData, ProjectDocument, ProjectDocumentData, ProjectDocumentParsed, ProjectDocumentParsedList } from '@/types/project'
 import { ObjectSchema, array, object, string } from 'yup'
-import { contentSchema } from './content'
 
 export const projectDataSchema: ObjectSchema<ProjectData> = object({
   title: string().max(128, 'El titulo es demasiado extenso, máximo 128 caracteres').required('El tiúlo es requerido'),

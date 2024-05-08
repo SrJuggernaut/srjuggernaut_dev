@@ -1,6 +1,6 @@
+import AdminTabs from '@/app/admin/_components/AdminTabs'
 import { Typography } from '@mui/material'
 import { FC } from 'react'
-import AdminTabs from './_components/AdminTabs'
 
 const AdminPage:FC = () => {
   return (

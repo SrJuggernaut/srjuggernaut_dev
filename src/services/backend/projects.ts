@@ -1,6 +1,6 @@
 import { ADMIN_TEAM_ID, DATABASE_ID, PROJECT_COLLECTION_ID, PROJECT_COLLECTION_NAME } from '@/lib/env'
 import { Permission, Role, databases } from '@/lib/nodeAppwrite'
-import { ensureDatabase } from './database'
+import { ensureDatabase } from '@/services/backend/database'
 
 export const ensureProjectsCollection = (() => {
   let existCollection = false

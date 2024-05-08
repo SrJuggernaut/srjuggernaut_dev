@@ -1,11 +1,11 @@
 'use client'
 import TabContactForm from '@/app/admin/_components/TabContactForm'
+import TabProjects from '@/app/admin/_components/TabProjects'
 import useStore from '@/state/useStore'
 import { Box, Skeleton, Tab, Tabs, Typography } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import TabProjects from './TabProjects'
 
 type ExistentTab = 'initial' | 'contact-forms' | 'projects'
 

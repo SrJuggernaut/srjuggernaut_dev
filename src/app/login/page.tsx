@@ -1,6 +1,6 @@
+import LoginForm from '@/app/login/_components/LoginForm'
 import { Card, CardContent, Container, Typography } from '@mui/material'
 import { darkTheme } from 'srjuggernaut-mui-theme'
-import LoginForm from './_components/LoginForm'
 
 const LoginPage = () => {
   return (
