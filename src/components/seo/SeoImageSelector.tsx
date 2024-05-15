@@ -15,10 +15,10 @@ const SeoImageSelector:FC<SeoImageSelectorProps> = ({ onSelect }) => {
         onSelect(getFileView(SEO_IMAGES_STORAGE_ID, imageFile.$id).toString())
       }}
       openButtonLabel='Selecciona una imagen'
-      DialogTitleText='Selecciona una imagen'
-      DialogDescriptionText='La imagen seleccionada se usara como imagen de SEO para tus publicaciones'
-      DialogCancelLabel='Cancelar'
-      DialogSelectLabel='Seleccionar'
+      dialogTitleText='Selecciona una imagen'
+      dialogDescriptionText='La imagen seleccionada se usara como imagen de SEO para tus publicaciones'
+      dialogCancelLabel='Cancelar'
+      dialogSelectLabel='Seleccionar'
       accept={['image/jpg', 'image/jpeg', 'image/png']}
     />
   )

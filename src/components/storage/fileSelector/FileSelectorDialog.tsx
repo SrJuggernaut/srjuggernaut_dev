@@ -6,16 +6,16 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Paginat
 import { FC, useContext, useEffect, useState } from 'react'
 
 export interface FileSelectorDialogProps {
-  DialogTitleText?: string
-  DialogDescriptionText?: string
-  DialogSelectLabel?: string
-  DialogCancelLabel?: string
+  dialogTitleText?: string
+  dialogDescriptionText?: string
+  dialogSelectLabel?: string
+  dialogCancelLabel?: string
   accept?: string[]
   setOpenFileSelector: (open: boolean) => void
   onSelect: (file: Models.File) => void
 }
 
-const FileSelectorDialog: FC<FileSelectorDialogProps> = ({ DialogTitleText, DialogDescriptionText, DialogSelectLabel, DialogCancelLabel, accept, setOpenFileSelector, onSelect }) => {
+const FileSelectorDialog: FC<FileSelectorDialogProps> = ({ dialogTitleText, dialogDescriptionText, dialogSelectLabel, dialogCancelLabel, accept, setOpenFileSelector, onSelect }) => {
   const { state: { bucketId, selectedFile } } = useContext(fileSelectorContext)
   const [pagination, setPagination] = useState<{ page: number, pageSize: number }>({ page: 1, pageSize: 10 })
   const [currentFiles, setCurrentFiles] = useState<Models.FileList>({ total: 0, files: [] })
@@ -46,10 +46,10 @@ const FileSelectorDialog: FC<FileSelectorDialogProps> = ({ DialogTitleText, Dial
       maxWidth="lg"
     >
       <DialogTitle>
-        {DialogTitleText ?? 'Seleccionar archivo'}
+        {dialogTitleText ?? 'Seleccionar archivo'}
       </DialogTitle>
       <DialogContent>
-        {DialogDescriptionText !== undefined && DialogDescriptionText.length > 0 && <Typography>{DialogDescriptionText}</Typography>}
+        {dialogDescriptionText !== undefined && dialogDescriptionText.length > 0 && <Typography>{dialogDescriptionText}</Typography>}
         <FilesGrid
           files={currentFiles.files}
         />
@@ -72,7 +72,7 @@ const FileSelectorDialog: FC<FileSelectorDialogProps> = ({ DialogTitleText, Dial
         <Button
           onClick={() => setOpenFileSelector(false)}
         >
-          {DialogCancelLabel ?? 'Cancelar'}
+          {dialogCancelLabel ?? 'Cancelar'}
         </Button>
         <Button
           disabled={selectedFile === undefined}
@@ -82,7 +82,7 @@ const FileSelectorDialog: FC<FileSelectorDialogProps> = ({ DialogTitleText, Dial
             setOpenFileSelector(false)
           }}
         >
-          {DialogSelectLabel ?? 'Seleccionar'}
+          {dialogSelectLabel ?? 'Seleccionar'}
         </Button>
       </DialogActions>
     </Dialog>

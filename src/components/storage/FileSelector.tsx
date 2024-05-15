@@ -9,14 +9,14 @@ export interface FileSelectorOpenerProps {
   openButtonLabel: string
   onSelect: (file: Models.File) => void
   accept?: string[]
-  DialogTitleText?: string
-  DialogDescriptionText?: string
-  DialogSelectLabel?: string
-  DialogCancelLabel?: string
+  dialogTitleText?: string
+  dialogDescriptionText?: string
+  dialogSelectLabel?: string
+  dialogCancelLabel?: string
 
 }
 
-const FileSelector: FC<FileSelectorOpenerProps> = ({ accept, bucketId, DialogCancelLabel, DialogDescriptionText, DialogSelectLabel, DialogTitleText, openButtonLabel = 'Seleccionar', onSelect }) => {
+const FileSelector: FC<FileSelectorOpenerProps> = ({ accept, bucketId, dialogCancelLabel, dialogDescriptionText, dialogSelectLabel, dialogTitleText, openButtonLabel = 'Seleccionar', onSelect }) => {
   const [openFileSelector, setOpenFileSelector] = useState(false)
   return (
     <>
@@ -34,10 +34,10 @@ const FileSelector: FC<FileSelectorOpenerProps> = ({ accept, bucketId, DialogCan
             accept={accept}
             setOpenFileSelector={setOpenFileSelector}
             onSelect={onSelect}
-            DialogCancelLabel={DialogCancelLabel}
-            DialogDescriptionText={DialogDescriptionText}
-            DialogSelectLabel={DialogSelectLabel}
-            DialogTitleText={DialogTitleText}
+            dialogCancelLabel={dialogCancelLabel}
+            dialogDescriptionText={dialogDescriptionText}
+            dialogSelectLabel={dialogSelectLabel}
+            dialogTitleText={dialogTitleText}
           />
         </FileSelectorContextProvider>
       )}
