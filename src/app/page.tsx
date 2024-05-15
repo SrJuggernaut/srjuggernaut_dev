@@ -1,10 +1,17 @@
 import Imagotype from '@/components/assets/Imagotype'
 import Logo from '@/components/assets/Logo'
+import { ensureMediaBucket, ensureSeoImagesBucket } from '@/services/backend/storage'
 import { Box, Button, Typography } from '@mui/material'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
 
-const HomePage = () => {
+const ensureStorage = async () => {
+  await ensureSeoImagesBucket()
+  await ensureMediaBucket()
+}
+
+const HomePage = async () => {
+  await ensureStorage()
   return (
     <>
       <Box
