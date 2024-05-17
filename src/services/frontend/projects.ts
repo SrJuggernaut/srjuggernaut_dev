@@ -5,14 +5,14 @@ import { ProjectData, ProjectDocument, ProjectDocumentData, ProjectDocumentParse
 import { ObjectSchema, array, object, string } from 'yup'
 
 export const projectDataSchema: ObjectSchema<ProjectData> = object({
-  title: string().max(128, 'El titulo es demasiado extenso, máximo 128 caracteres').required('El tiúlo es requerido'),
+  title: string().max(128, 'El titulo es demasiado extenso, máximo 128 caracteres').required('El titulo es requerido'),
   slug: string().max(128, 'El slug es demasiado extenso, máximo 128 caracteres').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/gm, 'El slug no es valido').required('El slug es requerido'),
   description: string().max(300, 'La descripción es demasiado extensa, máximo 300 caracteres').required('La descripción es requerida'),
   image: string().url('El link de la imagen no es válido').required('La imagen es requerida'),
   links: array().of(object({
     label: string().required('El label es requerido'),
     url: string().url('El link no es válido').required('El link es requerido'),
-    icon: string().url('El icon no es válido').optional()
+    icon: string().optional()
   })).required('Los links son requeridos'),
   technologies: array().of(string().required('La tecnología es requerida')).required('Las tecnologías son requeridas'),
   content: contentSchema.required('El contenido es requerido')

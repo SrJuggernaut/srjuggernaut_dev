@@ -1,6 +1,6 @@
 import IconSelector from '@/components/ui/IconSelector'
 import { ProjectLink } from '@/types/project'
-import { faChevronDown, faChevronUp, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, IconButton, Paper, TextField, Tooltip } from '@mui/material'
 import { FormikErrors, FormikTouched } from 'formik'
@@ -14,7 +14,7 @@ export interface ProjectLinkEditorProps {
   onDelete: () => void
   onMoveUp: () => void
   onMoveDown: () => void
-  error?: FormikErrors<ProjectLink>
+  error?: string | FormikErrors<ProjectLink>
   touched?: FormikTouched<ProjectLink>
 }
 
@@ -87,7 +87,7 @@ const ProjectLinkEditor:FC<ProjectLinkEditorProps> = ({ index, onChange, onDelet
           size="medium"
           onClick={onDelete}
         >
-          <FontAwesomeIcon icon={faTrash} size="xs" />
+          <FontAwesomeIcon icon={faTimes} size="xs" />
         </IconButton>
       </Box>
       <Box
@@ -108,8 +108,8 @@ const ProjectLinkEditor:FC<ProjectLinkEditorProps> = ({ index, onChange, onDelet
           name="label"
           value={value.label}
           onChange={(e) => onChange({ ...value, label: e.target.value })}
-          error={touched?.label !== undefined && error?.label !== undefined}
-          helperText={touched?.label !== undefined && error?.label}
+          error={touched?.label !== undefined && typeof error === 'object' && error?.label !== undefined}
+          helperText={touched?.label !== undefined && typeof error === 'object' && error?.label}
           fullWidth
         />
       </Box>
@@ -131,8 +131,8 @@ const ProjectLinkEditor:FC<ProjectLinkEditorProps> = ({ index, onChange, onDelet
           name="url"
           value={value.url}
           onChange={(e) => onChange({ ...value, url: e.target.value })}
-          error={touched?.url !== undefined && error?.url !== undefined}
-          helperText={touched?.url !== undefined && error?.url}
+          error={touched?.url !== undefined && typeof error === 'object' && error?.url !== undefined}
+          helperText={touched?.url !== undefined && typeof error === 'object' && error?.url}
           fullWidth
         />
       </Box>

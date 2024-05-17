@@ -1,16 +1,26 @@
 'use client'
 import ProjectLinkEditor from '@/app/admin/projects/_componentes/ProjectLinkEditor'
+import ContentEditor from '@/components/content/ContentEditor'
 import SeoImageSelector from '@/components/seo/SeoImageSelector'
 import SeoImageUploader from '@/components/seo/SeoImageUploader'
+import useHandleError from '@/hooks/useHandleError'
+import { createProject, projectDataSchema } from '@/services/frontend/projects'
+import useStore from '@/state/useStore'
 import { ProjectData, ProjectLink } from '@/types/project'
-import { faArrowRotateRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRotateRight, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik'
+import { nanoid } from 'nanoid'
 import NextImage from 'next/image'
+import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 
 const CreateProjectPage:FC = () => {
+  const { handleError } = useHandleError()
+  const addAlert = useStore((state) => state.addAlert)
+  const router = useRouter()
+
   const formik = useFormik<ProjectData>({
     initialValues: {
       title: '',
@@ -21,11 +31,18 @@ const CreateProjectPage:FC = () => {
       technologies: [],
       content: []
     },
-    onSubmit: (values) => {
-      console.log(values)
-    }
-    // validationSchema: projectSchema // TODO: validate
+    onSubmit: async (values) => {
+      try {
+        const createdProject = await createProject(values)
+        addAlert({ id: nanoid(), title: 'Proyecto creado', text: 'El proyecto se ha creado correctamente', severity: 'success' })
+        router.push(`/admin/projects/edit?id=${createdProject.$id}`)
+      } catch (error) {
+        handleError(error, 'Error al crear el proyecto', 'Ocurrió un error al crear el proyecto. Por favor, intenta de nuevo.', 'error')
+      }
+    },
+    validationSchema: projectDataSchema
   })
+
   return (
     <>
       <Typography variant="h1" align="center"gutterBottom>Crear proyecto</Typography>
@@ -49,6 +66,7 @@ const CreateProjectPage:FC = () => {
             label="Título"
             value={formik.values.title}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.touched.title !== undefined && formik.errors.title !== undefined}
             helperText={formik.errors.title !== undefined && formik.errors.title}
             fullWidth
@@ -60,8 +78,9 @@ const CreateProjectPage:FC = () => {
             label="Slug"
             value={formik.values.slug}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.touched.slug !== undefined && formik.errors.slug !== undefined}
-            helperText={formik.touched.slug !== undefined && formik.touched.slug}
+            helperText={formik.errors.slug !== undefined && formik.errors.slug}
             fullWidth
             margin="normal"
             InputProps={{
@@ -86,14 +105,14 @@ const CreateProjectPage:FC = () => {
           label="Descripción"
           value={formik.values.description}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           error={formik.touched.description !== undefined && formik.errors.description !== undefined}
-          helperText={formik.touched.description !== undefined && formik.touched.description}
+          helperText={formik.errors.description !== undefined && formik.errors.description}
           fullWidth
           margin="normal"
           multiline
           minRows={3}
         />
-        {/* TODO: image upload & preview component  */}
         <Typography variant="h2" gutterBottom>Imagen</Typography>
         <Box
           sx={{
@@ -148,6 +167,8 @@ const CreateProjectPage:FC = () => {
                 totalLinks={formik.values.links.length}
                 key={`link-${index}`}
                 value={link}
+                error={formik.errors.links?.[index]}
+                touched={formik.touched.links?.[index]}
                 onChange={(value) => {
                   const newLinks = [...formik.values.links]
                   newLinks[index] = value
@@ -197,22 +218,46 @@ const CreateProjectPage:FC = () => {
         </Box>
         <Typography variant="h2" gutterBottom>Tecnologías</Typography>
         <Box>
-          {formik.values.technologies.length > 0 && formik.values.technologies.map((technology, index) => (
-            <TextField
-              key={`technology-${index}`}
-              id={`technology-${index}`}
-              name={`technology-${index}`}
-              label={`Tecnología ${index + 1}`}
-              value={technology}
-              onChange={(event) => {
-                const newTechnologies = [...formik.values.technologies]
-                newTechnologies[index] = event.target.value
-                formik.setFieldValue('technologies', newTechnologies)
-              }}
-              fullWidth
-              margin="normal"
-            />
-          ))}
+          {formik.values.technologies.length > 0
+            ? formik.values.technologies.map((technology, index) => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1
+                }}
+                key={`technology-${index}`}
+              >
+                <TextField
+                  id={`technology-${index}`}
+                  name={`technology-${index}`}
+                  label={`Tecnología ${index + 1}`}
+                  value={technology}
+                  onChange={(event) => {
+                    const newTechnologies = [...formik.values.technologies]
+                    newTechnologies[index] = event.target.value
+                    formik.setFieldValue('technologies', newTechnologies)
+                  }}
+                  error={formik.touched.technologies !== undefined && formik.errors.technologies !== undefined && formik.errors.technologies?.[index] !== undefined}
+                  helperText={formik.touched.technologies !== undefined && formik.errors.technologies !== undefined && formik.errors.technologies?.[index] !== undefined ? formik.errors.technologies?.[index] : undefined}
+                  fullWidth
+                  margin="normal"
+                />
+                <IconButton
+                  onClick={() => {
+                    const newTechnologies = [...formik.values.technologies]
+                    newTechnologies.splice(index, 1)
+                    formik.setFieldValue('technologies', newTechnologies)
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </IconButton>
+              </Box>
+            ))
+            : (
+              <Typography variant="body1">No hay tecnologías agregadas</Typography>
+            )
+          }
           <Button
             type="button"
             fullWidth
@@ -224,13 +269,24 @@ const CreateProjectPage:FC = () => {
             Agregar tecnología
           </Button>
         </Box>
+        <Typography variant="h2" gutterBottom>Contenido</Typography>
+        <ContentEditor
+          value={formik.values.content}
+          onChange={(value) => formik.setFieldValue('content', value)}
+          error={(formik.touched.content !== undefined && formik.errors.content !== undefined) ? formik.errors.content : undefined}
+        />
         <Button
-          type="submit"
+          // type="submit"
+          type="button"
+          onClick={(event) => {
+            event.preventDefault()
+            formik.submitForm()
+          }}
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-        Crear proyecto
+          Crear proyecto
         </Button>
       </Box>
     </>
