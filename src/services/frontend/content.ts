@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import { ObjectSchema, array, lazy, object, string } from 'yup'
 
 export const markdownBlockSchema: ObjectSchema<MarkdownBlock> = object({
-  id: string().uuid().required('El ID es requerido'),
+  id: string().required('El ID es requerido'),
   type: string().oneOf(['markdown']).required('El tipo es requerido'),
   data: object({
     content: string().required('El contenido es requerido')
@@ -21,7 +21,7 @@ export const createNewMarkdownBlock = (): MarkdownBlock => {
 }
 
 export const imageBlockSchema: ObjectSchema<ImageBlock> = object({
-  id: string().uuid().required('El ID es requerido'),
+  id: string().required('El ID es requerido'),
   type: string().oneOf(['image']).required('El tipo es requerido'),
   data: object({
     url: string().url('El link de la imagen no es válido').required('La imagen es requerida'),
