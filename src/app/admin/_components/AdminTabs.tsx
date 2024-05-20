@@ -4,7 +4,7 @@ import TabProjects from '@/app/admin/_components/TabProjects'
 import useStore from '@/state/useStore'
 import { Box, Skeleton, Tab, Tabs, Typography } from '@mui/material'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 type ExistentTab = 'initial' | 'contact-forms' | 'projects'
@@ -13,12 +13,18 @@ const AdminTabs = () => {
   const status = useStore((state) => state.status)
   const account = useStore((state) => state.account)
   const teams = useStore((state) => state.teams)
+  const searchParams = useSearchParams()
   const [currentTaB, setCurrentTaB] = useState<ExistentTab>('initial')
   const router = useRouter()
 
   useEffect(() => {
     if (status === 'idle' && account === undefined && teams === undefined) {
       router.push('/login')
+    } else if (status === 'idle' && account !== undefined && teams !== undefined) {
+      const tab = searchParams.get('tab') as ExistentTab
+      if (tab && ['initial', 'contact-forms', 'projects'].includes(tab)) {
+        setCurrentTaB(tab)
+      }
     }
   }, [status])
 
