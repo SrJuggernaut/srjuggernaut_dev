@@ -1,21 +1,15 @@
 'use client'
 import useHandleError from '@/hooks/useHandleError'
 import { Query } from '@/lib/appwrite'
-import { getProjects } from '@/services/frontend/projects'
+import { deleteProject, getProjects } from '@/services/frontend/projects'
 import { ProjectDocumentParsedList } from '@/types/project'
+import { faEye, faPencil, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
+import { DataGrid, GridActionsCellItem, GridColDef, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
-
-const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', minWidth: 100, valueGetter: (params) => params.row.$id },
-  { field: 'image', headerName: 'Imagen', maxWidth: 125, flex: 1, filterable: false, sortable: false, renderCell: (params) => <NextImage src={params.row.image} alt={params.row.title} width={120} height={63} /> },
-  { field: 'title', headerName: 'Título', minWidth: 250, flex: 1 },
-  { field: 'slug', headerName: 'Slug', minWidth: 250, flex: 1, filterable: false, sortable: false },
-  { field: 'description', headerName: 'Descripción', minWidth: 250, flex: 1 }
-]
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const TabProjects = () => {
   const { handleError } = useHandleError()
@@ -49,6 +43,37 @@ const TabProjects = () => {
     const contactForms = await getProjects(queries)
     return contactForms
   }, [])
+
+  const columns: GridColDef[] = useMemo(() => ([
+    {
+      field: 'actions',
+      type: 'actions',
+      width: 50,
+      getActions: (params) => [
+        // @ts-ignore next-line GridActionsCellItem inherits href from NextLink, but it's not reflected in the types, so we ignore the error
+        <GridActionsCellItem key={`edit-${params.row.$id}`} component={NextLink} showInMenu href={`/admin/projects/edit?id=${params.row.$id}`} icon={(<FontAwesomeIcon icon={faPencil} />)} label="Editar" />,
+        // TODO: When the view feature is ready add the link
+        <GridActionsCellItem key={`view-${params.row.$id}`} showInMenu icon={(<FontAwesomeIcon icon={faEye} />)} label="Ver" />,
+        <GridActionsCellItem key={`delete-${params.row.$id}`} showInMenu onClick={async () => {
+          setLoading(true)
+          try {
+            await deleteProject(params.row.$id)
+            const data = await getData({ limit: paginationModel.pageSize, skip: paginationModel.page * paginationModel.pageSize, sort: sortModel, filter: filterModel })
+            setContactForms(data)
+          } catch (error) {
+            handleError(error, 'Error al eliminar el proyecto', 'Ocurrio un error al eliminar el proyecto. Por favor, intenta de nuevo.')
+          } finally {
+            setLoading(false)
+          }
+        }} icon={(<FontAwesomeIcon icon={faTimes} />)} label="Eliminar" />
+      ]
+    },
+    { field: 'id', headerName: 'ID', minWidth: 100, valueGetter: (params) => params.row.$id },
+    { field: 'image', headerName: 'Imagen', maxWidth: 125, flex: 1, filterable: false, sortable: false, renderCell: (params) => <NextImage src={params.row.image} alt={params.row.title} width={120} height={63} /> },
+    { field: 'title', headerName: 'Título', minWidth: 250, flex: 1 },
+    { field: 'slug', headerName: 'Slug', minWidth: 250, flex: 1, filterable: false, sortable: false },
+    { field: 'description', headerName: 'Descripción', minWidth: 250, flex: 1 }
+  ]), [])
 
   useEffect(() => {
     getData({ limit: paginationModel.pageSize, skip: paginationModel.page * paginationModel.pageSize, sort: sortModel, filter: filterModel })
