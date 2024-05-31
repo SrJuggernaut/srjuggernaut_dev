@@ -14,5 +14,5 @@ export const teams = new Teams(client)
 
 export const storage = new Storage(client)
 
-export { Compression, Permission, Role, type Models } from 'node-appwrite'
+export { Compression, IndexType, Permission, Role, type Models } from 'node-appwrite'
 export { client }

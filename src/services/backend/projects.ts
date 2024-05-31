@@ -1,5 +1,5 @@
 import { ADMIN_TEAM_ID, DATABASE_ID, PROJECT_COLLECTION_ID, PROJECT_COLLECTION_NAME } from '@/lib/env'
-import { Permission, Role, databases } from '@/lib/nodeAppwrite'
+import { IndexType, Permission, Role, databases } from '@/lib/nodeAppwrite'
 import { ensureDatabase } from '@/services/backend/database'
 
 export const ensureProjectsCollection = (() => {
@@ -24,6 +24,7 @@ export const ensureProjectsCollection = (() => {
       await databases.createStringAttribute(DATABASE_ID, PROJECT_COLLECTION_ID, 'links', 2048, true, undefined, false, false)
       await databases.createStringAttribute(DATABASE_ID, PROJECT_COLLECTION_ID, 'technologies', 32, true, undefined, true, false)
       await databases.createStringAttribute(DATABASE_ID, PROJECT_COLLECTION_ID, 'content', 102_400, true, undefined, false, false)
+      await databases.createIndex(DATABASE_ID, PROJECT_COLLECTION_ID, 'slug', IndexType.Unique, ['slug'])
     } finally {
       existCollection = true
     }
