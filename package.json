@@ -6,7 +6,6 @@
     "prepare": "husky",
     "develop": "next dev",
     "build": "next build",
-    "prestart": "bun install && next build",
     "start": "next start",
     "lint": "next lint"
   },

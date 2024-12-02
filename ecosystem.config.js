@@ -37,7 +37,7 @@ module.exports = {
       ref: 'origin/develop',
       repo: 'https://github.com/SrJuggernaut/srjuggernaut_dev',
       path: process.env.DEPLOY_PATH,
-      'post-deploy': 'pm2 --silent startOrRestart ecosystem.config.js && pm2 save',
+      'post-deploy': 'bun install && bun run build && pm2 --silent startOrRestart ecosystem.config.js && pm2 save',
       env: {
         APP_NAME: process.env.APP_NAME,
         PORT: process.env.PORT,
