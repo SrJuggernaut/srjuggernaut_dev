@@ -68,7 +68,7 @@ const TabProjects = () => {
         }} icon={(<FontAwesomeIcon icon={faTimes} />)} label="Eliminar" />
       ]
     },
-    { field: 'id', headerName: 'ID', minWidth: 100, valueGetter: (params) => params.row.$id },
+    { field: 'id', headerName: 'ID', minWidth: 100, valueGetter: (_, row) => row.$id },
     { field: 'image', headerName: 'Imagen', maxWidth: 125, flex: 1, filterable: false, sortable: false, renderCell: (params) => <NextImage src={params.row.image} alt={params.row.title} width={120} height={63} /> },
     { field: 'title', headerName: 'Título', minWidth: 250, flex: 1 },
     { field: 'slug', headerName: 'Slug', minWidth: 250, flex: 1, filterable: false, sortable: false },

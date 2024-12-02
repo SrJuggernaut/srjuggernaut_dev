@@ -6,14 +6,14 @@ import { Box, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid'
 import { useCallback, useEffect, useState } from 'react'
 
-const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', minWidth: 100, valueGetter: (params) => params.row.$id },
+const columns: GridColDef<ContactFormDocument>[] = [
+  { field: 'id', headerName: 'ID', minWidth: 100, valueGetter: (_, row) => row.$id },
   { field: 'read', headerName: 'Leido', minWidth: 50, type: 'boolean', editable: true },
   { field: 'name', headerName: 'Nombre', minWidth: 250, filterable: false },
   { field: 'email', headerName: 'Email', minWidth: 250, filterable: false },
   { field: 'message', headerName: 'Mensaje', minWidth: 450, filterable: false },
-  { field: '$createdAt', headerName: 'Fecha de creación', minWidth: 150, filterable: false, type: 'dateTime', valueGetter: (params) => new Date(params.row.$createdAt) },
-  { field: '$updatedAt', headerName: 'Fecha de actualización', minWidth: 150, filterable: false, type: 'dateTime', valueGetter: (params) => new Date(params.row.$updatedAt) }
+  { field: '$createdAt', headerName: 'Fecha de creación', minWidth: 150, filterable: false, type: 'dateTime', valueGetter: (_, row) => new Date(row.$createdAt) },
+  { field: '$updatedAt', headerName: 'Fecha de actualización', minWidth: 150, filterable: false, type: 'dateTime', valueGetter: (_, row) => new Date(row.$updatedAt) }
 ]
 
 const TabContactForm = () => {
